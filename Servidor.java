@@ -14,15 +14,18 @@ public class Servidor{
 				cliente = server.accept();
 				System.out.println("Cliente conectado no servidor"+cliente.getInetAddress().toString());
 				ObjectInputStream obEntrada = new ObjectInputStream(cliente.getInputStream());
-				String test = obEntrada.readLine();
-				System.out.println("Mensagem do cliente: "+ test);
+				System.out.println("--------------");
 				ObjectOutputStream obSaida = new ObjectOutputStream(cliente.getOutputStream());
-				obSaida.writeChars("Mensagem recebida");
+				System.out.println("Escreveu");
+				obSaida.writeObject("Olaaaa");
+				System.out.println("Mandou");
+				String test = (String) obEntrada.readObject(); //problema para receber
+				System.out.println("Mensagem do cliente: "+test);				
 				obSaida.close();
 				obEntrada.close();
 				cliente.close();
-				
 			}
+		
 		}
 		catch(Exception ex){
 			System.out.println("Erro ao abrir servidor");
